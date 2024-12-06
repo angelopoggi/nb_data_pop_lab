@@ -35,7 +35,8 @@ class ImportLocations(Job):
             self.logger.error("unable to find location type")
 
     def run(self, data):
-        csv_file = data['csv_file']
+        csv_file = self.csv_file
+        self.loger(csv_file)
         with csv_file.open(mode="r") as file:
             reader = csv.DictReader(file)
         for row in reader:
