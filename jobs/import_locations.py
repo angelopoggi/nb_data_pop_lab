@@ -1,6 +1,9 @@
 from nautobot.apps.jobs import Job, register_jobs, FileVar
 from nautobot.dcim.models import Location, LocationType
+from nautobot.core.api.parsers import NautobotCSVParser
 import csv
+from io import BytesIO
+import codecs
 
 class ImportLocations(Job):
     class Meta:
@@ -34,13 +37,14 @@ class ImportLocations(Job):
         else:
             self.logger.error("unable to find location type")
 
-    def run(self, data):
-        csv_file = self.csv_file
-        self.loger(csv_file)
-        with csv_file.open(mode="r") as file:
-            reader = csv.DictReader(file)
-        for row in reader:
-            logger.info(f"{row}")
+    def run(self, csv_file=None):
+        if csv_file:
+            # data_encoding is utf-8 and file_encoding is utf-8-sig
+            # Bytes read from the original file are decoded according to file_encoding, and the result is encoded using data_encoding.
+            csv_bytes = codecs.EncodedFile(csv_file, "utf-8", "utf-8-sig")
+            csv_reader =csv.DictReader(csv_bytes)
+            for row in csv_reader:
+                logger.info(row)
 
 register_jobs(ImportLocations)
 
