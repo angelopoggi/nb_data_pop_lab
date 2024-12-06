@@ -1,6 +1,5 @@
 from nautobot.apps.jobs import Job, register_jobs, FileVar
 from nautobot.dcim.models import Location, LocationType
-import us
 
 class ImportLocations(Job):
     class Meta:
@@ -8,10 +7,16 @@ class ImportLocations(Job):
 
     csv_file = FileVar(description="Upload a CSV file containing location data.")
 
-    def _find_state(self, state_two_letters):
-        state = us.states.lookup(str(state_two_letters))
-        return state.name
+    STATE_ABBREVIATIONS = {
+        "CA": "California",
+        "VA": "Virginia",
+        "NJ": "New Jersey",
+        "IL": "Illinois",
+    }
 
+    def _find_state(self, state_two_letters):
+        state = self.STATE_ABBREVIATIONS.get(state_two_letters)
+        return state
     def _get_location_type(self, site_name):
         '''
         pass in the site name and return datacenter or branch
