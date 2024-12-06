@@ -42,7 +42,7 @@ class ImportLocations(Job):
             # data_encoding is utf-8 and file_encoding is utf-8-sig
             # Bytes read from the original file are decoded according to file_encoding, and the result is encoded using data_encoding.
             #csv_bytes = codecs.EncodedFile(csv_file, "utf-8", "utf-8-sig")
-            with open(csv_file, mode='r') as file:
+            with csv_file.open(mode="r") as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
                     logger.info(row)
