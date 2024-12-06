@@ -3,6 +3,8 @@ from nautobot.dcim.models import Location, LocationType
 import us
 
 class ImportLocations(Job):
+    class Meta:
+        name = "Import Locations"
     '''
     Imports WAYNES LOCATIONS from a CSV
     '''
