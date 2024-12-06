@@ -1,5 +1,6 @@
 from nautobot.apps.jobs import Job, register_jobs, FileVar
 from nautobot.dcim.models import Location, LocationType
+import csv
 
 class ImportLocations(Job):
     class Meta:
@@ -33,8 +34,12 @@ class ImportLocations(Job):
         else:
             self.logger.error("unable to find location type")
 
-    def run(self):
-        pass
+    def run(self, data):
+        csv_file = data['csv_file']
+        with csv_file.open(mode="r") as file:
+            reader = csv.DictReader(file)
+        for row in reader:
+            logger.info(f"{row}")
 
 register_jobs(ImportLocations)
 
