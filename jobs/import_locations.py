@@ -5,9 +5,6 @@ import us
 class ImportLocations(Job):
     class Meta:
         name = "Import Locations"
-    '''
-    Imports WAYNES LOCATIONS from a CSV
-    '''
 
     csv_file = FileVar(description="Upload a CSV file containing location data.")
 
