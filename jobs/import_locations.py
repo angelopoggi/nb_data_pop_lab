@@ -29,7 +29,10 @@ class ImportLocations(Job):
         else:
             self.logger.error("unable to find location type")
 
-    def run(self, data, commit):
+    def run(self):
+        pass
+
+register_jobs(ImportLocations)
 
 
 
