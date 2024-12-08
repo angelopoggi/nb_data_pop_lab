@@ -40,14 +40,18 @@ class ImportLocations(Job):
                 #chatGPT helped me at this part - I brute forced it until I figured it out
                 text_file = TextIOWrapper(file, encoding="utf-8")
                 csv_reader = csv.DictReader(text_file)
+                state_location_type = LocationType.objects.get(name="State")
+                city_location_type = LocationType.objects.get(name="City")
                 for row in csv_reader:
                     #Find the state based on the two letter code
                     state = self._find_state(row['state'])
+
                     #Get the object, create if it doesn't exsist
-                    state_object = LocationType.objects.get_or_create(
+                    state_object = Location.objects.get_or_create(
                         name=state,
                         defaults = {
-                            "name": state
+                            "name": state,
+                            "location_type": state_location_type
                         }
                     )
                     #We also need the city object
@@ -55,7 +59,8 @@ class ImportLocations(Job):
                         name = row['city'],
                         defaults = {
                             "name": row['city'],
-                            "parent":state_object
+                            "parent":state_object,
+                            "location_type": city_location_type
                         }
                     )
                     location_type = self._get_location_type(row['name'])
