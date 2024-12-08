@@ -41,11 +41,11 @@ class ImportLocations(Job):
         if csv_file:
             # data_encoding is utf-8 and file_encoding is utf-8-sig
             # Bytes read from the original file are decoded according to file_encoding, and the result is encoded using data_encoding.
-            logger.info(type(csv_file))
+            self.logger.info(type(csv_file))
             with csv_file.open(mode="r") as file:
                 csv_reader = csv.DictReader(file)
                 for row in csv_reader:
-                    logger.info(row)
+                    self.logger.info(row)
 
 register_jobs(ImportLocations)
 
