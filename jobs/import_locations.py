@@ -3,7 +3,7 @@ from nautobot.dcim.models import Location, LocationType
 from nautobot.core.api.parsers import NautobotCSVParser
 import csv
 from io import TextIOWrapper
-from state_abbreviations import STATE_ABBREVIATIONS
+from .state_abbreviations import STATE_ABBREVIATIONS
 
 class ImportLocations(Job):
     class Meta:
