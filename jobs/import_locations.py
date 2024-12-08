@@ -44,14 +44,14 @@ class ImportLocations(Job):
                     #Find the state based on the two letter code
                     state = self._find_state(row['state'])
                     #Get the object, create if it doesn't exsist
-                    state_object = LocationType.get_or_create(
+                    state_object = LocationType.objects.get_or_create(
                         name=state,
                         defaults = {
                             "name": state
                         }
                     )
                     #We also need the city object
-                    city_object = Location.get_or_create(
+                    city_object = Location.objects.get_or_create(
                         name = row['city'],
                         defaults = {
                             "name": row['city'],
