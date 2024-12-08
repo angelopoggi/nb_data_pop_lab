@@ -41,10 +41,36 @@ class ImportLocations(Job):
                 text_file = TextIOWrapper(file, encoding="utf-8")
                 csv_reader = csv.DictReader(text_file)
                 for row in csv_reader:
+                    #Find the state based on the two letter code
                     state = self._find_state(row['state'])
+                    #Get the object, create if it doesn't exsist
+                    state_object = LocationType.get_or_create(
+                        name=state,
+                        defaults = {
+                            "name": state
+                        }
+                    )
+                    #We also need the city object
+                    city_object = Location.get_or_create(
+                        name = row['city'],
+                        defaults = {
+                            "name": row['city'],
+                            "parent":state_object
+                        }
+                    )
                     location_type = self._get_location_type(row['name'])
-                    self.logger.info(f"State: {state}, Site Name: {row['name']}, Location Type: {location_type}")
-
+                    site_object, created = Location.objects.get_or_create(
+                        name=row['name'],
+                        defaults = {
+                            "name": row['name'],
+                            "location_type": location_type,
+                            "parent" : city_object
+                        }
+                    )
+                    if created:
+                        self.logger.info(f"Created the Following Entry - State: {state}, Site Name: {row['name']}, Location Type: {location_type}")
+                    else:
+                        self.logger.info("Location already Exists")
 register_jobs(ImportLocations)
 
 
