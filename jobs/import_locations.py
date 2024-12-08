@@ -1,5 +1,5 @@
 from nautobot.apps.jobs import Job, register_jobs, FileVar
-from nautobot.dcim.models import Location, LocationType
+from nautobot.dcim.models import Location, LocationType, Status
 from nautobot.core.api.parsers import NautobotCSVParser
 import csv
 from io import TextIOWrapper
@@ -42,6 +42,7 @@ class ImportLocations(Job):
                 csv_reader = csv.DictReader(text_file)
                 state_location_type = LocationType.objects.get(name="State")
                 city_location_type = LocationType.objects.get(name="City")
+                active_status_object = Status.objects.get(name="Active")
                 for row in csv_reader:
                     #Find the state based on the two letter code
                     state = self._find_state(row['state'])
@@ -51,6 +52,7 @@ class ImportLocations(Job):
                         name=state,
                         defaults = {
                             "name": state,
+                            "status":active_status_object,
                             "location_type": state_location_type
                         }
                     )
@@ -59,6 +61,7 @@ class ImportLocations(Job):
                         name = row['city'],
                         defaults = {
                             "name": row['city'],
+                            "status": active_status_object,
                             "parent":state_object,
                             "location_type": city_location_type
                         }
@@ -68,6 +71,7 @@ class ImportLocations(Job):
                         name=row['name'],
                         defaults = {
                             "name": row['name'],
+                            "status": active_status_object,
                             "location_type": location_type,
                             "parent" : city_object
                         }
