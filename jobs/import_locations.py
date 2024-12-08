@@ -43,7 +43,7 @@ class ImportLocations(Job):
                 for row in csv_reader:
                     state = self._find_state(row['state'])
                     location_type = self._get_location_type(row['name'])
-                    self.logger.info(f"State: {state}, Site Name: {row['row']}, Location Type: {location_type}")
+                    self.logger.info(f"State: {state}, Site Name: {row['name']}, Location Type: {location_type}")
 
 register_jobs(ImportLocations)
 
