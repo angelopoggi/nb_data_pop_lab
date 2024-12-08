@@ -3,7 +3,7 @@ from nautobot.dcim.models import Location, LocationType
 from nautobot.core.api.parsers import NautobotCSVParser
 import csv
 from io import TextIOWrapper
-import codecs
+from state_abbreviations import STATE_ABBREVIATIONS
 
 class ImportLocations(Job):
     class Meta:
@@ -11,15 +11,9 @@ class ImportLocations(Job):
 
     csv_file = FileVar(description="Upload a CSV file containing location data.")
 
-    STATE_ABBREVIATIONS = {
-        "CA": "California",
-        "VA": "Virginia",
-        "NJ": "New Jersey",
-        "IL": "Illinois",
-    }
 
     def _find_state(self, state_two_letters):
-        state = self.STATE_ABBREVIATIONS.get(state_two_letters)
+        state = STATE_ABBREVIATIONS.get(state_two_letters)
         return state
     def _get_location_type(self, site_name):
         '''
@@ -43,10 +37,13 @@ class ImportLocations(Job):
             # Bytes read from the original file are decoded according to file_encoding, and the result is encoded using data_encoding.
             self.logger.info(type(csv_file))
             with csv_file.open(mode="rb") as file:
+                #chatGPT helped me at this part - I brute forced it until I figured it out
                 text_file = TextIOWrapper(file, encoding="utf-8")
                 csv_reader = csv.DictReader(text_file)
                 for row in csv_reader:
-                    self.logger.info(row)
+                    state = self._find_state(row['state'])
+                    location_type = self._get_location_type(row['name'])
+                    self.logger.info(f"State: {state}, Site Name: {site_name}, Location Type: {location_type}")
 
 register_jobs(ImportLocations)
 
