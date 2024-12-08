@@ -25,7 +25,7 @@ class ImportLocations(Job):
             #query NB data to get location Type UUID
             location_type = LocationType.objects.get(name="Data Center")
         elif site_name.endswith("-BR"):
-            location_type = LocationType.objects.get(name="Data Center")
+            location_type = LocationType.objects.get(name="Branch")
         if location_type:
             return location_type
         else:
