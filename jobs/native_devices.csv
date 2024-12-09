@@ -1,2 +1,17 @@
-name,ip_address_host,location_name,device_status_name, interface_status,ip_address_status_name, platform_name, set_mgmt_only,update_devices_without_primary_ip,
-csr1, 172.18.0.10,"den-dc",Active,Active,Active,cisco_xe,true,true
+ip_address_host,location_name,device_role_name,namespace,device_status_name,interface_status_name,ip_address_status_name,secrets_group_name,platform_name,set_mgmt_only,update_devices_without_primary_ip
+172.18.0.10,"Den-DC",network,global,Active,Active,Active,"DATA_POPULATION_SECRETS_GROUP",cisco_xe,True,True
+172.18.0.11,"Den-DC",network,global,Active,Active,Active,"DATA_POPULATION_SECRETS_GROUP",cisco_xe,True,True
+172.18.0.12,"Den-DC",network,global,Active,Active,Active,"DATA_POPULATION_SECRETS_GROUP",cisco_xe,True,True
+172.18.0.13,"Den-DC",network,global,Active,Active,Active,"DATA_POPULATION_SECRETS_GROUP",cisco_nxos,True,True
+172.18.0.14,"Den-DC",network,global,Active,Active,Active,"DATA_POPULATION_SECRETS_GROUP",cisco_nxos,True,True
+172.18.0.20,"Ashburn-DC",network,global,Active,Active,Active,"DATA_POPULATION_SECRETS_GROUP",juniper_junos,True,True
+172.18.0.21,"Ashburn-DC",network,global,Active,Active,Active,"DATA_POPULATION_SECRETS_GROUP",juniper_junos,True,True
+172.18.0.22,"Ashburn-DC",network,global,Active,Active,Active,"DATA_POPULATION_SECRETS_GROUP",juniper_junos,True,True
+172.18.0.23,"Ashburn-DC",network,global,Active,Active,Active,"DATA_POPULATION_SECRETS_GROUP",arista_eos,True,True
+172.18.0.24,"Ashburn-DC",network,global,Active,Active,Active,"DATA_POPULATION_SECRETS_GROUP",arista_eos,True,True
+172.18.0.25,"Ashburn-DC",network,global,Active,Active,Active,"DATA_POPULATION_SECRETS_GROUP",arista_eos,True,True
+172.18.0.27,"SanDiego-BR",network,global,Active,Active,Active,"DATA_POPULATION_SECRETS_GROUP",nokia_srl,True,True
+172.18.0.28,"Den-BR",network,global,Active,Active,Active,"DATA_POPULATION_SECRETS_GROUP",nokia_srl,True,True
+172.18.0.29,"Ashburn-BR",network,global,Active,Active,Active,"DATA_POPULATION_SECRETS_GROUP",nokia_srl,True,True
+172.18.0.30,"Newark-BR",network,global,Active,Active,Active,"DATA_POPULATION_SECRETS_GROUP",nokia_srl,True,True
+172.18.0.31,"Chicago-BR",network,global,Active,Active,Active,"DATA_POPULATION_SECRETS_GROUP",nokia_srl,True,True
