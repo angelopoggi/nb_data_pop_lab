@@ -42,7 +42,7 @@ class FindLocations(Job):
                 text_file = TextIOWrapper(file, encoding="utf-8")
                 csv_reader = csv.DictReader(text_file)
                 for row in csv_reader:
-                    location_name = Location.objects.get(name=row['location_name'])
+                    location_name = Location.objects.get(name=row["location_name"].strip(), parent=None)
                     if location_name:
                         self.logger.info(f"found location {location_name}")
                     else:
