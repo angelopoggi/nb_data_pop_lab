@@ -1,5 +1,6 @@
 from nautobot.apps.jobs import Job, register_jobs, FileVar
-from nautobot.dcim.models import Location, LocationType, Status
+from nautobot.dcim.models import Location, LocationType
+from nautobot.extras.models import Status
 from nautobot.core.api.parsers import NautobotCSVParser
 import csv
 from io import TextIOWrapper
