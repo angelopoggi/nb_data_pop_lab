@@ -49,7 +49,7 @@ class ImportLocations(Job):
                     state = self._find_state(row['state'])
 
                     #Get the object, create if it doesn't exsist
-                    state_object = Location.objects.get_or_create(
+                    state_object, state_obj_created = Location.objects.get_or_create(
                         name=state,
                         defaults = {
                             "name": state,
@@ -58,7 +58,7 @@ class ImportLocations(Job):
                         }
                     )
                     #We also need the city object
-                    city_object = Location.objects.get_or_create(
+                    city_object, city_obj_created = Location.objects.get_or_create(
                         name = row['city'],
                         defaults = {
                             "name": row['city'],
