@@ -1,0 +1,2 @@
+name,ip_address_host,location_name,device_status_name, interface_status,ip_address_status_name, platform_name, set_mgmt_only,update_devices_without_primary_ip,
+csr1, 172.18.0.10,"den-dc",Active,Active,Active,cisco_xe,true,true
