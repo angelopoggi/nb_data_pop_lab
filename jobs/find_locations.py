@@ -1,5 +1,5 @@
 from nautobot.apps.jobs import Job, register_jobs, FileVar
-from nautobot.dcim.models import Location, LocationType
+from nautobot.dcim.models import Location, LocationType, Platform
 from nautobot.extras.models import Status
 from nautobot.core.api.parsers import NautobotCSVParser
 import csv
@@ -43,9 +43,14 @@ class FindLocations(Job):
                 csv_reader = csv.DictReader(text_file)
                 for row in csv_reader:
                     #location_name = Location.objects.get(name=row["location_name"])
-                    location_name = Location.objects.get(name=row["location_name"].strip(), parent=None)
+                    location_name = Location.objects.get(name=row["location_name"].strip())
+                    platform_name = Platform.objects.get(name=row['platform_name'].strip())
                     if location_name:
                         self.logger.info(f"found location {location_name}")
+                    else:
+                        self.logger.info("no location")
+                    if platform_name:
+                        self.logger.info(f"found platform {platform_name}")
                     else:
                         self.logger.info("no location")
 register_jobs(FindLocations)
